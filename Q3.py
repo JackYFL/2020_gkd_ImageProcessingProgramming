@@ -1,3 +1,4 @@
+#coding:utf8
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
@@ -36,12 +37,20 @@ def twodConv(f, kernel, padding='zero'):
         img_pad = np.zeros((W + 2 * w_pad, H + 2 * h_pad))
         img_pad[w_pad:w_pad + W, w_pad:w_pad + H] = img
         img_pad = np.array(img_pad, dtype=np.uint8)
-        img_conv = conv2d(img_pad, kernel)
+        # img_conv1 = conv2d(img_pad, kernel)
+        img_conv = cv.filter2D(img, -1, kernel, borderType=cv.BORDER_CONSTANT)
+        img_conv = np.array(img_conv, dtype=np.uint8)
+        # img_conv1 = np.array(img_conv, dtype=np.uint8)
+        # diff = abs(img_conv - img_conv1).sum()
         return img_conv
     elif padding == 'replicate':  # if the padding mode is replicate
         img_pad = np.pad(img, ((w_pad, w_pad), (h_pad, h_pad)), 'edge')
         img_pad = np.array(img_pad, dtype=np.uint8)
-        img_conv = conv2d(img_pad, kernel)
+        # img_conv1 = conv2d(img_pad, kernel)
+        img_conv = cv.filter2D(img, -1, kernel, borderType=cv.BORDER_REPLICATE)
+        img_conv = np.array(img_conv, dtype=np.uint8)
+        # img_conv1=np.array(img_conv, dtype=np.uint8)
+        # diff = (abs(img_conv - img_conv1)).sum()
         return img_conv
     else:
         print('The padding mode is invalid, please input again!')
@@ -49,7 +58,7 @@ def twodConv(f, kernel, padding='zero'):
 
 if __name__ == '__main__':
     img = np.arange(1, 7).reshape(2, 3)
-    w = np.ones((5, 5))*0.1
+    w = np.ones((3, 3))
     conv1 = twodConv(f=img, kernel=w, padding='replicate')
     conv2 = twodConv(f=img, kernel=w)
     print(conv1)
