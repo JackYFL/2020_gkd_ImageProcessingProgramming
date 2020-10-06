@@ -1,3 +1,4 @@
+#coding:utf8
 import cv2 as cv
 import os
 import matplotlib.pyplot as plt
@@ -19,29 +20,34 @@ def scanLine4e(f, I, loc):
         if I < img.shape[0] and I < img.shape[1] and I > 0:
             if loc == 'row':
                 s = img[I]  # extract the I-th row vector
-                plt.figure()
                 ######bar graph######
-                # plt.bar(s, label='row pixel vector')
-                # plt.xlabel('pixel index', fontsize=17)
-                # plt.ylabel('value', fontsize=17)
-                # plt.title(u'The I-th row pixel vector bar', fontsize=20)
-                # plt.show()
-                ######histogram######
-                plt.hist(s, bins=18, facecolor='red', edgecolor='blue',alpha=0.6)
-                plt.xlabel('pixel index', fontsize=17)
-                plt.ylabel('value',fontsize=17)
-                plt.title(u'The I-th row pixel vector hist', fontsize=20)
-            elif loc == 'col':
-                s = img[:][I - 1]  # extract the I-th col vector
                 plt.figure()
-                # plt.bar(x=range(1, s.shape[0] + 1), height=s.tolist(), label='col pixel vector')
-                # plt.xlabel('pixel index')
-                # plt.ylabel('value')
-                # plt.title(u'The I-th col pixel vector', fontsize=20)
-                plt.hist(s, bins=18, facecolor='red', edgecolor='blue',alpha=0.6)
-                plt.xlabel('pixel index', fontsize=17)
-                plt.ylabel('value',fontsize=17)
-                plt.title(u'The I-th col pixel vector hist', fontsize=20)
+                plt.plot(range(1, 1 + s.shape[0]), s, linewidth=3)
+                plt.xlabel('pixel index', fontsize=20)
+                plt.ylabel('value', fontsize=20)
+                plt.title(u'The I-th row pixel vector', fontsize=20)
+                plt.savefig('figures/The_I-th_row_pixel_vector_plot.png', dpi=800, bbox_inches='tight')
+                # ######histogram######
+                # plt.figure()
+                # plt.hist(s, bins=18, facecolor='red', edgecolor='blue', alpha=0.6)
+                # plt.xlabel('pixel index', fontsize=20)
+                # plt.ylabel('value', fontsize=20)
+                # plt.title(u'The I-th row pixel vector hist', fontsize=20)
+                # plt.savefig('figures/The_I-th_row_pixel_vector_hist.png', dpi=800, bbox_inches='tight')
+            elif loc == 'col':
+                s = img[:,I]  # extract the I-th col vector
+                plt.figure()
+                plt.plot(range(1, 1 + s.shape[0]), s, linewidth=3)
+                plt.xlabel('pixel index', fontsize=20)
+                plt.ylabel('value', fontsize=20)
+                plt.title(u'The I-th col pixel vector', fontsize=20)
+                plt.savefig('figures/The_I-th_col_pixel_vector_plot.png', dpi=800, bbox_inches='tight')
+                # plt.figure()
+                # plt.hist(s, bins=18, facecolor='red', edgecolor='blue', alpha=0.6)
+                # plt.xlabel('pixel index', fontsize=20)
+                # plt.ylabel('value', fontsize=20)
+                # plt.title(u'The I-th col pixel vector hist', fontsize=20)
+                # plt.savefig('figures/The_I-th_col_pixel_vector_hist.png', dpi=800, bbox_inches='tight')
             else:
                 print('The loc parameter is invalid, please input again!')
         else:
@@ -52,5 +58,5 @@ def scanLine4e(f, I, loc):
 
 if __name__ == '__main__':
     scanLine4e(f='cameraman.tif', I=128, loc='row')
-    scanLine4e(f='einstein.tif', I=128, loc='col')
+    scanLine4e(f='cameraman.tif', I=128, loc='col')
     plt.show()
