@@ -12,8 +12,8 @@ def gaussKernel(sig, m=0):
     if m < 3 and m != 0:
         print("The kernel size is small, please input again!")
     elif m == 0:
-        m = int(np.ceil(3 * sig))
-        if sig % 2 == 0:
+        m = int(np.ceil(6 * sig)+1)
+        if m % 2 == 0:
             m += 1
         kernel = np.zeros((m, m))
         half_size = int(m / 2)
