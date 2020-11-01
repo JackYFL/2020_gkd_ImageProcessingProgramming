@@ -27,7 +27,7 @@ def rgb1gray(f, method='NTSC', showflag=True):
                 plt.title('Average')
             return grayimg
         elif method == 'NTSC':
-            grayimg = (0.2989 * rgbimg[:, :, 0] + 0.5870 * rgbimg[:, :, 1] + 0.1140 * rgbimg[:, :, 2])
+            grayimg = (0.2989 * rgbimg[:, :, 2] + 0.5870 * rgbimg[:, :, 1] + 0.1140 * rgbimg[:, :, 0])
             grayimg = np.around(grayimg)
             grayimg = np.array(grayimg, dtype=np.uint8)
             if showflag:
