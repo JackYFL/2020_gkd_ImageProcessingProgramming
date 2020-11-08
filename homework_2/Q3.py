@@ -57,7 +57,10 @@ if __name__ == '__main__':
     f = ((img - img.min()) / (img.max() - img.min()))
     F = dft2D(f, shift=False)
     g = idft2D(F)
-    d = f - g
+    d = 255*(f - g)
+    d = np.array(d, 'float')
+    diff = abs(d).sum()
+    showimg(d, title='The difference of two images', save='figures/difference_rose512_nounit8.png')
     d = np.array(d, 'uint8')
     diff = abs(d).sum()
     showimg(d, title='The difference of two images', save='figures/difference_rose512.png')
